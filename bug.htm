@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Reporting Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-tI2ah1WfCBvtp9lYXEh8R0cbpXw2IapU0G9PvJrBE8F6EM0GJRDx8/48M8T49hSfC2QyTzUMqo47RR+QaVU7vg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://i.pinimg.com/564x/ad/fe/c6/adfec60620426c53f8b05e0e6ba4bebe.jpg");
+            background-size: cover;
+            background-attachment: fixed; /* Ensures the background image is fixed */
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar a:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        .navbar .left {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar .left a {
+            margin-right: 10px;
+        }
+
+        .navbar .right {
+            margin-right: 20px; /* Adjust margin for space between notification and profile */
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* Align items to the right */
+            position: relative; /* Ensure relative positioning for dropdown */
+        }
+
+        .navbar .icon {
+            margin-right: 8px;
+        }
+
+        .profile img {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            margin-right: 40px;
+        }
+
+        .container {
+            width: 80%;
+            padding: 20px;
+            margin-top: 80px; /* Adjust to prevent content from being hidden under navbar */
+            display: flex;
+            justify-content: space-between; /* Adjust spacing between left and right sections */
+            height: 1300px;
+        }
+
+        .report-bug-form {
+            width: 50%;
+            margin-right: 60px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            color: whitesmoke;
+            border: 2px solid white;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+        }
+
+        .report-bug-form h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .report-bug-form label {
+            font-weight: bold;
+        }
+
+        .report-bug-form input[type="text"],
+        .report-bug-form input[type="file"],
+        .report-bug-form input[type="link"],
+        .report-bug-form select,
+        .report-bug-form textarea {
+            width: calc(100% - 22px); /* Adjust width here */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #F0EDFF; /* Background color for input fields */
+        }
+
+        .report-bug-form textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        .report-bug-form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .signin-btn {
+            width: 140px;
+            height: 55px;
+            background-color: #6c63ff;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(52, 53, 66, 0.4); 
+            transition: box-shadow 0.3s ease-in-out;
+            font-weight: 800;
+            margin-left: 250px;
+        }
+
+        .signin-btn:hover {
+            box-shadow: 0 8px 16px rgba(52, 53, 66, 0.6);
+        }
+
+        input{
+            outline: none;
+            background-color: #F0EDFF;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="left">
+            <a href="home.htm">
+                <span class="icon">&#127968;</span>Home
+            </a>
+            <a href="bug.htm">
+                <span class="icon">&#128736;</span>Report a Bug
+            </a>
+            <a href="forum.htm">
+                <span class="icon">&#128101;</span>Community Forum
+            </a>
+            <a href="dashboard.htm">
+                <span class="icon">&#128200;</span>Monitoring Dashboard
+            </a>
+            <a href="about-us.htm">
+                <span class="icon">&#128100;</span>About Us
+            </a>
+        </div>
+        <div class="profile">
+            <a href="user.htm">
+                <img src="girl2.png" alt="Profile">
+            </a>
+        </div> 
+    </div>
+
+    <div class="container">
+        <!-- Bug Reporting Form Section -->
+        <div class="report-bug-form">
+            <h1>Report a Bug</h1>
+            <form action="submit_bug.php" method="POST" enctype="multipart/form-data">
+                <label for="bug-title">Bug Title:</label><br><br>
+                <input type="text" id="bug-title" name="bug-title" required><br><br>
+
+                <label for="bug-category">Bug Category:</label><br><br>
+                <select id="bug-category" name="bug-category" required style="outline:none;" >
+                    <option value="">Select Category</option>
+                    <option value="security">Security</option>
+                    <option value="usability">Usability</option>
+                    <option value="performance">Performance</option>
+                    <!-- Add more categories as needed -->
+                </select><br><br>
+
+                <label for="bug-category">Ministry:</label><br><br>
+                <select id="bug-category" name="bug-category" required style="outline:none;" >
+                    <option value="">Education</option>
+                    <option value="security">Health</option>
+                    <option value="usability">Bank</option>
+                    <option value="performance">Railway</option>
+                    <!-- Add more categories as needed -->
+                </select><br><br>
+
+                <label for="bug-description">Bug Description:</label><br><br>
+                <textarea id="bug-description" style="outline:none;" name="bug-description" rows="4" required></textarea><br><br>
+
+                <label for="bug-other-docs">Name the Website:</label><br><br>
+                <input type="text" id="bug-other-docs" name="bug-other-docs"><br><br>
+
+                <label for="bug-other-docs">Website Link:</label><br><br>
+                <input type="link" id="bug-other-docs" name="bug-other-docs"><br><br>
+
+                <label for="bug-screenshot">Attach Screenshot:</label><br><br>
+                <input type="file" id="bug-screenshot" name="bug-screenshot"><br><br>
+
+                <label for="bug-video">Attach Video:</label><br><br>
+                <input type="file" id="bug-video" name="bug-video"><br><br>
+
+                <label for="bug-other-docs">Attach Other Documents:</label><br><br>
+                <input type="file" id="bug-other-docs" name="bug-other-docs"><br><br>
+
+                <button type="submit" class="signin-btn">Submit</button>
+            </form>
+        </div>
+        
+        <!-- Badge Section -->
+      
+    </div>
+
+    <script>
+        function openBugFile(fileName) {
+            window.location.href = fileName;
+        }
+    </script>
+</body>
+</html>

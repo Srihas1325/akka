@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Forum</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-tI2ah1WfCBvtp9lYXEh8R0cbpXw2IapU0G9PvJrBE8F6EM0GJRDx8/48M8T49hSfC2QyTzUMqo47RR+QaVU7vg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://i.pinimg.com/564x/ad/fe/c6/adfec60620426c53f8b05e0e6ba4bebe.jpg");
+            background-size: cover;
+            background-attachment: fixed; /* Ensures the background image is fixed */
+        }
+
+        .navbar {
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .navbar a:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .navbar .left {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .left a {
+            margin-right: 10px;
+        }
+        .navbar .right {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+            position: relative; /* Ensure relative positioning for dropdown */
+        }
+        .navbar .icon {
+            margin-right: 8px;
+        }
+       
+        .profile img {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+        }
+
+        .container {
+            padding: 20px;
+            margin-top: 60px; /* Adjust to prevent content from being hidden under navbar */
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .forum-container {
+            width: 50%;
+            max-width: 800px;
+            border-radius: 10px;
+            color: #ddd;
+            border: 2px solid wheat;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .forum-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .message-board {
+            max-height: 500px; /* Adjust height as needed */
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .message:last-child {
+            border-bottom: none; /* Remove border bottom for last item */
+        }
+
+        .message h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+
+        .message p {
+            margin: 5px 0;
+        }
+
+        .message time {
+            color: #999;
+            font-size: 0.8em;
+        }
+
+        .reply-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reply-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            height: 100px;
+        }
+
+        .reply-form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .reply-form button:hover {
+            background-color: #45a049;
+        }
+
+        .message-replies {
+            margin-left: 20px;
+            border-left: 2px solid #ddd;
+            padding-left: 10px;
+        }
+
+        /* Leaderboard Section */
+        .leaderboard-section {
+            margin-top: 50px;
+            width: 30%;
+            max-width: 300px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            height: 400px;
+        }
+
+        .leaderboard-section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .leaderboard {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard-item span {
+            font-weight: bold;
+            color: #666;
+        }
+
+        button{
+            margin-left: 300px;
+            width: 100px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <!-- Navbar content -->
+        <div class="left">
+            <a href="home.htm">
+                <span class="icon">&#127968;</span>Home
+            </a>
+            <a href="bug.htm">
+                <span class="icon">&#128736;</span>Report a Bug
+            </a>
+            <a href="forum.htm">
+                <span class="icon">&#128101;</span>Community Forum
+            </a>
+            <a href="dashboard.htm">
+                <span class="icon">&#128200;</span>Monitoring Dashboard
+            </a>
+            <a href="about-us.htm">
+                <span class="icon">&#128100;</span>About Us
+            </a>
+        </div>
+        <div class="profile">
+            <a href="user.htm">
+                <img src="girl2.png" alt="Profile">
+            </a>
+        </div> 
+    </div>
+
+    <div class="container">
+
+        <!-- Leaderboard Section -->
+        <div class="leaderboard-section">
+            <h2>Leaderboard</h2>
+            <ul class="leaderboard">
+                <li class="leaderboard-item">
+                    <span>1.</span>
+                    <span>User1</span>
+                    <span>500 points</span>
+                </li>
+                <li class="leaderboard-item">
+                    <span>2.</span>
+                    <span>User2</span>
+                   
+                    <span>450 points</span>
+                </li>
+                <li class="leaderboard-item">
+                    <span>3.</span>
+                    <span>User3</span>
+                    <span>400 points</span>
+                </li>
+                <li class="leaderboard-item">
+                    <span>4.</span>
+                    <span>User4</span>
+                    <span>350 points</span>
+                </li>
+                <li class="leaderboard-item">
+                    <span>5.</span>
+                    <span>User5</span>
+                    <span>300 points</span>
+                </li>
+                <li class="leaderboard-item">
+                    <span>6.</span>
+                    <span>User6</span>
+                    <span>250 points</span>
+                </li>
+                <li class="leaderboard-item">
+                    <span>7.</span>
+                    <span>User7</span>
+                    <span>200 points</span>
+                </li>
+                <li class="leaderboard-item">
+                    <span>8.</span>
+                    <span>User8</span>
+                    <span>100 points</span>
+                </li>
+                <!-- Add more leaderboard items as needed -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const messages = [
+            {
+                author: 'User1',
+                text: 'What are the common issues faced in the system?',
+                time: '10:00 AM',
+                replies: [
+                    { author: 'User2', text: 'The main issue is with the login module.', time: '10:05 AM' },
+                    { author: 'User3', text: 'I also faced some bugs in the dashboard.', time: '10:10 AM' }
+                ]
+            },
+            {
+                author: 'User4',
+                text: 'Does anyone have a solution for the data sync problem?',
+                time: '11:00 AM',
+                replies: [
+                    { author: 'User5', text: 'Yes, you need to check the API configurations.', time: '11:05 AM' }
+                ]
+            }
+        ];
+
+        function displayMessages() {
+            const messageBoard = document.getElementById('messageBoard');
+            messageBoard.innerHTML = '';
+
+            messages.forEach(message => {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                
+                const messageContent = `
+                    <h3>${message.author}</h3>
+                    <p>${message.text}</p>
+                    <time>${message.time}</time>
+                `;
+                
+                messageDiv.innerHTML = messageContent;
+                
+                if (message.replies && message.replies.length > 0) {
+                    const repliesDiv = document.createElement('div');
+                    repliesDiv.classList.add('message-replies');
+
+                    message.replies.forEach(reply => {
+                        const replyDiv = document.createElement('div');
+                        replyDiv.classList.add('message');
+                        replyDiv.innerHTML = `
+                            <h3>${reply.author}</h3>
+                            <p>${reply.text}</p>
+                            <time>${reply.time}</time>
+                        `;
+                        repliesDiv.appendChild(replyDiv);
+                    });
+
+                    messageDiv.appendChild(repliesDiv);
+                }
+
+                messageBoard.appendChild(messageDiv);
+            });
+        }
+
+        document.getElementById('replyForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const messageInput = document.getElementById('messageInput');
+            const newMessage = {
+                author: 'CurrentUser', // You can change this to the actual current user's name
+                text: messageInput.value,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                replies: []
+            };
+            messages.push(newMessage);
+            messageInput.value = '';
+            displayMessages();
+        });
+
+        displayMessages();
+    </script>
+</body>
+</html>

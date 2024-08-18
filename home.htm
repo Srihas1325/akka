@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Bug Reporting Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-tI2ah1WfCBvtp9lYXEh8R0cbpXw2IapU0G9PvJrBE8F6EM0GJRDx8/48M8T49hSfC2QyTzUMqo47RR+QaVU7vg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("https://i.pinimg.com/564x/ad/fe/c6/adfec60620426c53f8b05e0e6ba4bebe.jpg");
+            background-size: cover;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            z-index: 1000; /* Ensure the navbar is on top */
+        }    
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        .navbar a:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .navbar .left {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .left a {
+            margin-right: 10px;
+        }
+        .navbar .right {
+            display: flex;
+            align-items: center;
+            margin-right: 100px;
+        }
+        .navbar .icon {
+            margin-right: 8px;
+        }
+        .notification {
+            position: relative;
+            margin-right: 20px;
+            cursor: pointer; 
+        }
+       
+        .profile img {
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+        }
+        .categories {
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            background-color: #0056b3; /* Color for the category bar */
+            padding: 10px 0;
+            position: fixed; /* Make it fixed */
+            top: 40px; /* Below the main navbar */
+            width: 100%; /* Full width */
+            z-index: 999; /* Above other content but below the navbar */
+            text-align: center;
+        }
+        .categories .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .categories .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        .categories .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+        .categories .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+        .categories .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .categories a {
+            padding-bottom: 50px;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        .container {
+            padding: 20px;
+            margin-top: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .home-content {
+            margin-top: 40px;
+             /* Center align the text */
+        }
+        .home-title {
+            margin-left: 20px;
+            font-size: 3em;
+            color: #fff;
+            display: inline-block; /* Ensure inline display */
+        }
+        .search-container {
+            text-align: center;
+            margin-top: 20px; /* Adjust top margin as needed */
+            position: relative;
+            display: inline-block; /* Ensure inline display */
+        }
+        .search-bar {
+            width: 200px; /* Adjust width for the icon */
+            max-width: 900px;
+            padding: 10px 40px 10px 20px; /* Added padding for the icon */
+            font-size: 18px;
+            border: none;
+            border-radius: 20px;
+            margin-left: 200px;
+            background-color: rgba(255, 255, 255, 0.8); /* Adjust transparency as needed */
+            color: #131111;
+        }
+        .search-bar:focus {
+            outline: none; /* Remove outline on focus if needed */
+        }
+        button{
+            margin-top: 20px; /* Add some margin above the button */
+            width: 100px;
+            height: 50px;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            background-color: #0056b3; /* Button background color */
+            color: #fff; /* Button text color */
+            cursor: pointer;
+        }
+        
+        /* Styling for select box */
+    .event {
+    width: 32%;
+    margin-right: 1%;
+    float: left;
+    background-color: #fff;
+    padding: 10px;
+  }
+  .event .heading {
+    background: #702eaa;
+    padding: 5px;
+    color: #fff;
+    background: #702eaa;
+    text-align: center;
+  }
+  .event ul li {
+    margin-bottom: 20px;
+    width: 100%;
+    float: left;
+    list-style: none;
+  }
+  .event-date {
+    background: #702eaa;
+    float: left;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    padding: 8px 12px;
+    margin-right: 10px;
+  }
+  .cycle-container {
+    display: flex;
+    
+    justify-content: space-around;
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+  .cycle-card {
+    text-align: center;
+   
+    padding: 15px;
+    border-radius: 0.5rem;
+  }
+  .cycle-card img {
+    max-width: 100%;
+    height: 100px;
+    border-radius: 0.5rem;
+    margin-bottom: 10px;
+  }
+  select {
+            padding: 15px 20px; /* Adjust padding for height */
+            font-size: 18px; /* Adjust font size */
+            border: none;
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.8); /* Adjust transparency as needed */
+            color: #131111;
+            margin-top: 20px;
+            width: 300px; /* Adjust width as needed */
+            max-width: 100%;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            text-align: center;
+            outline: none; /* Remove outline on focus */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-left: 50px;
+        }
+        select:focus {
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.3); /* Adjust focus style */
+        }
+        select option {
+            background-color: #fff;
+            color: #131111;
+            padding: 10px;
+            font-size: 16px;
+        }
+        select option:first-child {
+            color: #999; /* Placeholder text color */
+        }
+        .cat{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+    </style>
+</head>
+ <body>
+      <div class="navbar">
+        <!-- Navbar content -->
+        <div class="left">
+            <a href="home.htm">
+                <span class="icon">&#127968;</span>Home
+            </a>
+            <a href="bug.htm">
+                <span class="icon">&#128736;</span>Report a Bug
+            </a>
+            <a href="forum.htm">
+                <span class="icon">&#128101;</span>Community Forum
+            </a>
+            <a href="dashboard.htm">
+                <span class="icon">&#128200;</span>Monitoring Dashboard
+            </a>
+            <a href="about-us.htm">
+                <span class="icon">&#128100;</span>About Us
+            </a>
+        </div>
+        <div class="right">
+            <a href="signup.htm">
+                <span class="icon">&#128100;</span>Sign In
+            </a>
+            <a href="login.htm">
+                <span class="icon">&#128274;</span>Login
+            </a>
+            <div class="notification">
+                <span class="icon">&#128276;</span>
+                <span class="badge">5</span>
+            </div>
+            <div class="profile">
+                <a href="user.htm">
+                    <img src="girl2.png" alt="Profile">
+                </a>
+            </div>            
+        </div>
+    </div>
+    <div class="container">
+        <div class="home-content">
+            <h1 class="home-title ">Welcome Bhagya!!</h1>
+        </div>
+            <div class="cat">
+                <select id="categorySelect" onchange="categorySelected(this)">
+                    <option value="">Select Category</option>
+                    <option value="category3">All</option>
+                    <option value="category1">Category 1</option>
+                    <option value="category2">Category 2</option>
+                    <option value="category3">Category 3</option>
+                    <option value="category3">Category 4</option>
+                    <option value="category3">Category 5</option>
+                    <option value="category3">Category 6</option>
+                    <option value="category3">Category 7</option>
+                </select>
+                <button style="margin-left: 50px;">Go</button>
+            </div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search for Bug...">
+            </div>
+    </div>
+    
+<div class="main" style="padding-top: 5px; padding-bottom: 10px;margin-bottom: 10px;">
+    <!------ Campus, Events and Notice Board HTML Starts ------->
+<div class="main-section" >
+    <div class="container">
+      <!--------------------------------CAMPUS NEWS SECTION ---------------------------->
+      <div class="event">
+        <h2 class="heading">Latest News</h2>
+        <div>
+          <marquee direction="up"style="height:390px;">
+            <ul>
+              <li>
+                <i>01-April-2023 :</i>  Government imposes stock limits on wheat<img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/000000/new.png" alt="new"/>
+              </li>
+              <li>
+                <i>01-April-2023 :</i> Strategic mineral blocks auction <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/000000/new.png" alt="new"/>
+              </li>
+              <li>
+                <i>01-April-2023 :</i>  <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/000000/new.png" alt="new"/>
+              </li>
+              <li>
+                <i>01-April-2023 :</i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/000000/new.png" alt="new"/>
+              <li>
+                <i>01-April-2023 :</i>Net direct tax collections rise -<img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/000000/new.png" alt="new"/>
+              </li>
+              <li>
+                <i>01-April-2023 :</i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/000000/new.png" alt="new"/>
+              </li>
+              <li>
+                <i>01-April-2023 :</i> Strategic mineral blocks auction <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/000000/new.png" alt="new"/>
+              </li>
+              <li>
+                <i>01-April-2023 :</i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. <img src="images/new.gif">
+              </li>
+              <li>
+                <i>01-April-2023 :</i> Lorem Ipsum is simply dummy text of the printing and typesetting industry. <img src="images/new.gif">
+              </li>
+            </ul>
+          </marquee>
+        </div>
+      </div>
+      <!----------------------------EVENT SECTION ----------------------->
+      <div class="event">
+        <h2 class="heading">Events</h2>
+        <div>
+          <ul>
+            <li>
+              <span class="event-date">29 <br> April </span><div class="text bold"><h6>Public Hearing on Affordable Housing:</h6></div>
+            </li>
+            <li>
+              <span class="event-date">29 <br> April </span> Webinar on Tenant Rights: 
+            <li>
+              <span class="event-date">29 <br> April </span>South Dakota Regional Public Sector Cybersecurity Summit 2024:
+             
+            </li>
+            <li>
+              <span class="event-date">29 <br> April </span> Los Angeles Digital Government Summit 2024:
+            </li>
+            <li>
+              <span class="event-date">29 <br> April </span> Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!--------------------------------NOTICE BOARD SECTION ------------------------->
+      <div class="event">
+        <h2 class="heading">Notice Boards</h2>
+        <div>
+          <ul>
+            <li><img width="30" height="30" src="C:\Users\HP\AppData\Local\Temp\15343f18-7560-425e-a7b6-92c4a7f32521_h1[1].zip.521\home\h2.png" alt="medium-volume"/>
+         FSSAI mandates increased font size for nutritional information on food labels​ 
+            </li>
+            <li><img width="30" height="30" src="C:\Users\HP\AppData\Local\Temp\9a6298ba-2c9c-49e9-a8e2-73c38cf22655_h1[1].zip.655\home\h1.png" alt="medium-volume"/>
+         RBI has penalized five banks, including PNB, for non-compliance with regulations​
+            </li>
+            <li><img width="30" height="30" src="C:\Users\HP\AppData\Local\Temp\c70ca9eb-652d-4539-8ab0-86651ad36e32_h1[1].zip.e32\home\h2.png" alt="medium-volume"/>
+         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            </li>
+            <li ><img width="30" height="30" src="C:\Users\HP\AppData\Local\Temp\2c2e609b-a2d2-49c5-a635-4e66eea17447_h1[1].zip.447\home\h3.png" alt="medium-volume"/>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            </li>
+            <li><img width="30" height="30" src="C:\Users\HP\AppData\Local\Temp\9a0d2579-eef9-4f40-895d-fa45e2d173d1_h1[1].zip.3d1\home\h4.png" alt="medium-volume"/>
+               Assam Flood Relief Efforts - Over 24 lakh people affected by floods; government intensifies relief operations
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+</div><br><br>
+    <div class="container" >
+        <div class="text-light bold pt-4" style="padding-left:2%; padding-bottom: 2px ;"><h2>What You Can DO?</h2></div>
+        <div class="row  cycle-container"style="padding-top: 20px;">
+          <div class="col-md-3">
+            <div class="cycle-card">
+              <img src="h4.png" alt="Image 1">
+              <p class="text-light">Report Bug</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="cycle-card">
+              <img src="h1.png" alt="Image 2">
+              <p class="text-light">Find Bug</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="cycle-card">
+              <img src="h3.png" alt="Image 3">
+              <p class="text-light">Coummnity</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="cycle-card">
+              <img src="h2.png" alt="Image 4">
+              <p class="text-light">Soultion</p>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 2em auto;
+            padding: 1em;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .bug-details {
+            margin-bottom: 2em;
+        }
+
+        .bug-details h2 {
+            margin-top: 0;
+        }
+
+        .bug-details p {
+            margin: 0.5em 0;
+        }
+
+        .bug-details img, .bug-details video {
+            max-width: 100%;
+            margin: 1em 0;
+        }
+
+        .comment-section {
+            margin-top: 2em;
+        }
+
+        .comment-section h3 {
+            margin-top: 0;
+        }
+
+        .comment {
+            background-color: #f9f9f9;
+            padding: 1em;
+            margin: 0.5em 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .comment form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .comment label, .comment input, .comment textarea, .comment button {
+            margin-bottom: 0.5em;
+        }
+
+        .comment input, .comment textarea {
+            padding: 0.5em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .comment button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 0.5em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .comment button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bug Details</h1>
+    </header>
+    <main>
+        <div class="bug-details">
+            <h2 id="bug-title">Bug Title</h2>
+            <p id="bug-category">Category: <strong>Category Name</strong></p>
+            <p id="bug-description">Description: Bug description goes here.</p>
+            <img id="bug-screenshot" src="" alt="Bug Screenshot" style="display: none;">
+            <video id="bug-video" controls style="display: none;"></video>
+        </div>
+        <div class="comment-section">
+            <h3>Comments</h3>
+            <div id="comments">
+                <!-- Comments will be dynamically added here -->
+            </div>
+            <form id="comment-form">
+                <label for="comment-text">Add a Comment:</label>
+                <textarea id="comment-text" name="comment-text" rows="4" required></textarea>
+                <button type="submit">Submit Comment</button>
+            </form>
+        </div>
+    </main>
+    <script>
+        // Sample data to demonstrate functionality
+        const bugData = {
+            title: "Example Bug",
+            category: "Usability",
+            description: "This is an example bug description.",
+            screenshot: "example-screenshot.jpg",
+            video: "example-video.mp4",
+            comments: [
+                { text: "This is the first comment." },
+                { text: "This is the second comment." }
+            ]
+        };
+
+        // Populate bug details
+        document.getElementById('bug-title').innerText = bugData.title;
+        document.getElementById('bug-category').innerHTML = `Category: <strong>${bugData.category}</strong>`;
+        document.getElementById('bug-description').innerText = `Description: ${bugData.description}`;
+
+        if (bugData.screenshot) {
+            const screenshotElement = document.getElementById('bug-screenshot');
+            screenshotElement.src = bugData.screenshot;
+            screenshotElement.style.display = 'block';
+        }
+
+        if (bugData.video) {
+            const videoElement = document.getElementById('bug-video');
+            videoElement.src = bugData.video;
+            videoElement.style.display = 'block';
+        }
+
+        // Populate comments
+        const commentsContainer = document.getElementById('comments');
+        bugData.comments.forEach(comment => {
+            const commentElement = document.createElement('div');
+            commentElement.classList.add('comment');
+            commentElement.innerText = comment.text;
+            commentsContainer.appendChild(commentElement);
+        });
+
+        // Handle comment form submission
+        document.getElementById('comment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const commentText = document.getElementById('comment-text').value;
+
+            // Add the new comment to the comment section
+            const newCommentElement = document.createElement('div');
+            newCommentElement.classList.add('comment');
+            newCommentElement.innerText = commentText;
+            commentsContainer.appendChild(newCommentElement);
+
+            // Clear the textarea
+            document.getElementById('comment-text').value = '';
+        });
+    </script>
+</body>
+</html>
